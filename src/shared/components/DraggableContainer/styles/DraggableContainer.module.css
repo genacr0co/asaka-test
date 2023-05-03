@@ -1,14 +1,15 @@
 .Root {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+    position: relative;
+    cursor: grab;
 }
+
 
 .DragItem {
     width: 100%;
     position: relative;
     height: 82px;
+    flex-shrink: 0;
 }
 
 
