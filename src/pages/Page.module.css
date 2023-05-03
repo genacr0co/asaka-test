@@ -1,0 +1,23 @@
+.Root {
+    width: 100%;
+    max-width: 1656px;
+    margin: 0 auto;
+    /*position: absolute;*/
+
+    /*height: 100%;*/
+
+    /*top: 0;*/
+    /*left: 0;*/
+
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: 32px;
+}
+
+.FlexRow {
+    display: flex;
+    flex-direction: row;
+    gap: 14px;
+    align-items: center;
+}

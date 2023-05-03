@@ -1,0 +1,17 @@
+.Root {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    padding: 4px 10px;
+    gap: 10px;
+    min-width: 84px;
+    height: 28px;
+    background: var(--white);
+    border-radius: 14px;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 20px;
+    letter-spacing: 0.005em;
+    color: var(--primary);
+}

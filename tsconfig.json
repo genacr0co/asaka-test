@@ -17,10 +17,13 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "experimentalDecorators": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "baseUrl": "./src",
   },
   "include": [
     "src"
-  ]
+  ],
+  "exclude": ["node_modules"]
 }
