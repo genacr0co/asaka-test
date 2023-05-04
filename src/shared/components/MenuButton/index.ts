@@ -1,2 +1,2 @@
 export {MenuButton} from './components/MenuButton';
-export type {Props as ArrowCheckboxProps} from './lib/props';
+export type {Props as MenuButtonProps} from './lib/props';

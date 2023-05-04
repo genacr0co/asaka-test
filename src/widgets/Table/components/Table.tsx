@@ -1,12 +1,18 @@
 import React, {useState} from "react";
-import {DraggableItem, useDraggableContainer, ArrowCheckbox, FolderIcon} from "shared/components";
+
+import {
+    DraggableItem,
+    useDraggableContainer,
+    ArrowCheckbox, FolderIcon,
+    MenuButton
+} from "shared/components";
 
 import {useStore} from "shared/lib/vStore";
 
 import {Props} from "../lib/props";
 import styles from '../styles/Table.module.css';
+
 import {SubTable} from "./SubTable";
-import {MenuButton} from "../../../shared/components/MenuButton";
 
 export const Table = (props: Props) => {
 

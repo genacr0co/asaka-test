@@ -1,6 +1,8 @@
 import {useDraggableContainerProps} from "./props";
 import {MouseEvent, useEffect, useRef, useState} from "react";
 
+// САМАЯ ТЯЖЕЛАЯ ФУНКЦИЯ, ДУМАЮ НУЖНО ЕЕ РЕФАКТОРИТЬ :( , НО ВРЕМЕНИ НЕТ
+
 export const useDraggableContainer = (props: useDraggableContainerProps) => {
 
     const containerRef = useRef<any | null>(null); // ссылка на род. контейнер
