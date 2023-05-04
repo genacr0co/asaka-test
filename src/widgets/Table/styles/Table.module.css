@@ -77,6 +77,10 @@
     display: flex;
     flex-direction: column;
     gap: 9px;
+
+    width: 100%;
+    margin-right: 8px;
+    min-width: auto;
 }
 
 .SpaceBetween {
@@ -85,11 +89,40 @@
     align-items: center;
     padding: 0 25px;
     margin-bottom: 26px;
+}
 
+.SpaceBetween * {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
 }
 
 .FlexRow {
     display: flex;
     align-items: center;
     width: 80%;
+}
+
+
+.Actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.SubLength {
+    background: #beccee;
+    border-radius: 30px;
+    color: white;
+    padding: 2px 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 12px;
+    min-width: 30px;
+    height: 20px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
 }

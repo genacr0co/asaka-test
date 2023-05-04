@@ -6,6 +6,7 @@ import {useStore} from "shared/lib/vStore";
 import {Props} from "../lib/props";
 import styles from '../styles/Table.module.css';
 import {SubTable} from "./SubTable";
+import {MenuButton} from "../../../shared/components/MenuButton";
 
 export const Table = (props: Props) => {
 
@@ -57,7 +58,7 @@ export const Table = (props: Props) => {
                             <div className={styles.SpaceBetween}>
 
                                 <div className={styles.FlexRow}>
-                                    <div className={styles.column} style={{width: 62, marginRight: 8}}>
+                                    <div className={styles.column} style={{maxWidth: 62}}>
                                         <div className={styles.columnTitle}>
                                             №
                                         </div>
@@ -67,7 +68,7 @@ export const Table = (props: Props) => {
                                     </div>
 
 
-                                    <div className={styles.column} style={{width: 290, marginRight: 8}}>
+                                    <div className={styles.column} style={{maxWidth: 290}}>
                                         <div className={styles.columnTitle}>
                                             Название
                                         </div>
@@ -77,7 +78,7 @@ export const Table = (props: Props) => {
                                         </div>
                                     </div>
 
-                                    <div className={styles.column}>
+                                    <div className={styles.column} style={{maxWidth: 259}}>
                                         <div className={styles.columnTitle}>
                                             Очередность
                                         </div>
@@ -85,8 +86,24 @@ export const Table = (props: Props) => {
                                             <span>{index + 1}</span>
                                         </div>
                                     </div>
+
+                                    <div className={styles.column}
+                                         style={{maxWidth: 722, overflow: 'hidden', textOverflow: 'ellipsis'}}>
+                                        <div className={styles.columnTitle}>
+                                            Подкатегории
+                                        </div>
+                                        <div className={styles.Title}>
+                                            <span>{
+                                                item.sub !== undefined && item.sub.map((sub, i, array) => `${sub.title} ${array.length - 1 !== i ? '/' : ''} `)
+                                            }</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
+
+                                <div className={styles.Actions}>
+                                    <div className={styles.SubLength}>
+                                        {item.sub?.length || 0}
+                                    </div>
                                     <ArrowCheckbox checked={divider === item.id} onClick={() => {
                                         if (divider !== item.id) {
                                             setDivider(item.id)
@@ -94,6 +111,7 @@ export const Table = (props: Props) => {
                                             setDivider(null)
                                         }
                                     }}/>
+                                    <MenuButton/>
                                 </div>
                             </div>
 
