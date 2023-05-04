@@ -1,2 +1,10 @@
-export {DraggableContainer} from './components/DraggableContainer';
-export type {Props as DraggableContainerProps, Item as DraggableItem} from './lib/props';
+export {DraggableItem} from './components/DraggableItem';
+
+export type {DraggableItemProps} from './components/DraggableItem';
+
+export {useDraggableContainer} from './lib/useDraggableContainer';
+
+export type {useDraggableContainerProps} from './lib/props';
+
+
+

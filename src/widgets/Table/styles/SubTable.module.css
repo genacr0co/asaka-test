@@ -1,61 +1,41 @@
-.Root {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
 .TableRow {
-    border-radius: 12px;
     background-color: white;
     color: var(--black);
-    padding: 18px 0px;
+    padding: 14px 25px 0px 25px;
     overflow: hidden;
     transition: height .3s;
 }
 
 .dropIndicator {
     width: 100%;
-    background: var(--light-blue);
-    border: 2px dashed var(--primary);
-    border-radius: 12px;
+    background: var(--light-gray);
     position: relative;
     flex-shrink: 0;
-    transition: opacity .4s, height .3s;
-    height: 82px;
+    transition: opacity .4s;
+    height: 72px;
 }
 
-.Tools {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 39px;
+.Root {
+    border-top: 1px solid var(--light-gray);
+    overflow-Y: scroll;
 }
 
-.Tools span {
-
-    color: var(--black);
-
-    font-size: 12px;
-    font-weight: 500;
-    padding: 10px;
-    cursor: pointer;
+.line {
+    width: 95.5%;
+    height: 1px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom: 1px solid #E1E1E1;
 }
 
-
-.Name, .Title {
+.Title {
     display: flex;
     gap: 6px;
     align-items: center;
 }
 
-.Name span {
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 20px;
-    letter-spacing: 0.005em;
-    text-transform: uppercase;
-    color: var(--black);
-}
 
 .Title span {
     font-weight: 500;
@@ -83,9 +63,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 25px;
-    margin-bottom: 26px;
-
 }
 
 .FlexRow {

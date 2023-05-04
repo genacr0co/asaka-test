@@ -1,0 +1,23 @@
+.Root {
+    border: 1px solid #397AF5;
+    border-radius: 12px;
+    width: 32px;
+    height: 32px;
+
+    transition: background-color .2s;
+
+    background-color: var(--primary);
+    color: var(--white);
+
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.checked {
+    background-color: var(--light-blue) !important;
+    color: var(--primary) !important;
+
+}

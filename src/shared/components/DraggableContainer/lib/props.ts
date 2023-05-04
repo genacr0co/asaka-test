@@ -1,14 +1,10 @@
 import {Dispatch, SetStateAction} from "react";
 
-export interface Item {
-    id: number,
-    order: number,
-    title: string;
-}
+export interface useDraggableContainerProps {
+    list: any[];
+    setList: Dispatch<SetStateAction<any[]>>;
 
-export interface Props {
-    list: Item[];
-    setList: Dispatch<SetStateAction<Item[]>>;
+    onPointerMove?: () => void;
 
     gap?: number;
     isScalableItem?: boolean;
@@ -17,4 +13,5 @@ export interface Props {
 
     activeCursor?: string;
     defaultCursor?: string;
+
 }

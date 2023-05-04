@@ -7,6 +7,9 @@
     --primary: #397AF5;
 
     --font-family: "Gilroy";
+
+    --gray: #949494;
+    --light-gray: #E1E1E1;
 }
 
 * {
@@ -17,6 +20,24 @@
     user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
+
+    scrollbar-width: none;
+    scrollbar-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
 }
 
 html,
