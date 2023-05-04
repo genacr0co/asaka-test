@@ -13,6 +13,7 @@
 
     z-index: 1;
 
+
     transition-timing-function: ease;
     will-change: transform, left, top;
 

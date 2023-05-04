@@ -28,6 +28,7 @@ export const SubTable = (props: Props) => {
                 <div className={styles.Root}>
                     {list.map((item, index) =>
                         <DraggableItem key={item.id}
+                                       id={item.id}
                                        index={index} params={params}
                                        dropIndicatorClass={styles.dropIndicator}
                                        TableRowClass={styles.TableRow}

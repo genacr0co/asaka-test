@@ -8,6 +8,8 @@ export interface DraggableItemProps {
     index: number;
     onPointerDown?: () => void;
 
+    id: number;
+
     styleRow?: CSSProperties;
     styleIndicator?: CSSProperties;
 
@@ -62,6 +64,7 @@ export const DraggableItem = (props: DraggableItemProps) => {
                  ref={el => props.params.itemsRef.current[props.index] = el}
                  style={Object.assign({...props.styleRow}, {
                      pointerEvents: props.params.isMouseDown.current ? 'none' : 'auto',
+                     // display: props.id === 1 ? 'block' : 'none',
                  })}
             >
                 {props.children}

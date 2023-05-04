@@ -9,9 +9,8 @@
     border-radius: 12px;
     background-color: white;
     color: var(--black);
-    padding: 18px 0px;
+    padding: 18px 0;
     overflow: hidden;
-    transition: height .3s;
 }
 
 .dropIndicator {

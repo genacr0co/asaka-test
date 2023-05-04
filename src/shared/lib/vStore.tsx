@@ -70,9 +70,37 @@ export const useStore = () => {
                 },
             ]
         },
+        {
+            id: 4,
+            title: 'Кредиты 4',
+            sub: [
+                {
+                    id: 1,
+                    title: 'Максимал фойда (Нац. валюта)',
+                },
+                {
+                    id: 2,
+                    title: 'On-line (Нац. валюта)',
+                },
+            ]
+        },
+        {
+            id: 5,
+            title: 'Кредиты 5',
+            sub: [
+                {
+                    id: 1,
+                    title: 'Максимал фойда (Нац. валюта)',
+                },
+                {
+                    id: 2,
+                    title: 'On-line (Нац. валюта)',
+                },
+            ]
+        },
     ]);
 
-    const [isDragX, setIsDragX] = useState<boolean>(false);
+    const [isDragX, setIsDragX] = useState<boolean>(true);
     const [isScalableItem, setIsScalableItem] = useState<boolean>(false);
 
     return {
