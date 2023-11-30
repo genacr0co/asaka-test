@@ -43,13 +43,13 @@ export const NestedList = observer((props: Props) => {
                                            dropIndicatorClass={`${styles.DropIndicator} ${props.is_parent ? styles.DropIndicatorParent : styles.DropIndicatorChildren}`}
                                            TableRowClass={`${styles.TableRow} ${props.is_parent ? styles.TableRowParent : styles.TableRowChildren}`}
 
-                                // styleIndicator={{
-                                //     height: `${item.sub ? divider !== item.id ? 82 : 72 * item.sub!.length + 87 : 82}px`
-                                // }}
+                                styleIndicator={{
+                                    height: `${item.sub ? divider !== item.id ? 82 : 82 * item.sub!.length + 87 : 82}px`
+                                }}
 
-                                           styleIndicator={{
-                                               height: `${item.sub !== undefined && item.sub.length > 0 && divider === item.id ? '500px' : ''}`
-                                           }}
+                                           // styleIndicator={{
+                                           //     height: `${item.sub !== undefined && item.sub.length > 0 && divider === item.id ? '500px' : ''}`
+                                           // }}
                             >
 
                                 {!props.is_parent &&
