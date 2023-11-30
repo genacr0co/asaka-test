@@ -9,12 +9,19 @@ import {App} from './app/App';
 
 import reportWebVitals from './reportWebVitals';
 
+import Store from "./shared/lib/store";
+import {Context} from "./shared/lib/context";
+
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 
+const store = new Store();
+
 root.render(<React.StrictMode>
-    <App/>
+    <Context.Provider value={{store}}>
+        <App/>
+    </Context.Provider>
 </React.StrictMode>);
 
 // If you want to start measuring performance in your app, pass a function

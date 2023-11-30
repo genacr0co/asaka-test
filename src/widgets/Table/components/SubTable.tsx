@@ -1,21 +1,24 @@
-import React, {useState} from "react";
-import {DraggableItem, useDraggableContainer, SubFolderIcon} from "shared/components";
+import React, {useContext} from "react";
+import {observer} from "mobx-react";
 
-import {Item} from "shared/lib/vStore";
+import {DraggableItem, useDraggableContainer, SubFolderIcon} from "shared/components";
+import {Item} from "shared/lib/types";
+import {Context} from "shared/lib/context";
 
 import styles from '../styles/SubTable.module.css';
 
 interface Props {
-    sub_list: Item[];
+    list: Item[];
     id: number;
 }
 
-export const SubTable = (props: Props) => {
-
-    const [list, setList] = useState<Item[]>(props.sub_list)
+export const SubTable = observer((props: Props) => {
+    const {store} = useContext(Context);
 
     const params = useDraggableContainer({
-        list, setList,
+        list: props.list,
+        sortListByOrder: store.sortListByOrder,
+        isDragX: store.isDragX,
     });
 
 
@@ -24,10 +27,13 @@ export const SubTable = (props: Props) => {
             e.stopPropagation();
             e.preventDefault();
         }}>
-            <div ref={params.containerRef}>
+            <div
+                ref={params.containerRef}
+            >
                 <div className={styles.Root}>
-                    {list.map((item, index) =>
+                    {props.list.map((item, index) =>
                         <DraggableItem key={item.id}
+                                       id={item.id}
                                        index={index} params={params}
                                        dropIndicatorClass={styles.dropIndicator}
                                        TableRowClass={styles.TableRow}
@@ -67,6 +73,7 @@ export const SubTable = (props: Props) => {
                                         </div>
                                     </div>
                                 </div>
+
                                 <div>
 
                                 </div>
@@ -78,4 +85,4 @@ export const SubTable = (props: Props) => {
             </div>
         </div>
     );
-};
+});

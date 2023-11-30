@@ -1,8 +1,9 @@
-import React, {CSSProperties, Dispatch, MutableRefObject, ReactNode, SetStateAction} from "react";
+import React, {CSSProperties, Dispatch, MutableRefObject, ReactNode} from "react";
 
 export interface useDraggableContainerProps {
     list: any[];
-    setList: Dispatch<SetStateAction<any[]>>;
+    sortListByOrder: (list: any[], dragItem: number, dragOverItem: number) => void;
+
     onPointerMove?: () => void;
     gap?: number;
     isScalableItem?: boolean;
@@ -14,13 +15,15 @@ export interface useDraggableContainerProps {
 
 export interface DraggableItemProps {
     children: ReactNode;
+    params: DraggableContainerParams;
+    id: number;
+    index: number;
+
     dropIndicatorClass?: string;
     TableRowClass?: string;
-    index: number;
     onPointerDown?: () => void;
     styleRow?: CSSProperties;
     styleIndicator?: CSSProperties;
-    params: DraggableContainerParams;
 }
 
 export interface DraggableContainerParams {
@@ -29,8 +32,9 @@ export interface DraggableContainerParams {
     previousDragOverItem: React.MutableRefObject<number | null>;
     dragItem: MutableRefObject<number | null>;
     cords: MutableRefObject<{ startY: number, lastY: number, startX: number }>;
-    containerRef: MutableRefObject<any>;
-    currentOverDragging: number | null;
+    // containerRef: MutableRefObject<any>;
     setCurrentOverDragging: Dispatch<React.SetStateAction<number | null>>;
     itemsRef: React.MutableRefObject<HTMLDivElement[] | null[]>;
+    currentOverDragging: number | null;
+    isDragging: boolean;
 }

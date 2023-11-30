@@ -1,0 +1,87 @@
+.Root {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+
+    margin-bottom: 26px;
+    padding: 0 25px;
+
+}
+
+.Root * {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}
+
+.Parent {
+}
+
+.FlexRow {
+    display: flex;
+    align-items: center;
+    width: 80%;
+}
+
+
+.Name, .Title {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.Name span {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.005em;
+    text-transform: uppercase;
+    color: var(--black);
+}
+
+.Title span {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.005em;
+    color: var(--black);
+}
+
+.columnTitle {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    color: var(--gray);
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    width: 100%;
+}
+
+.Actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.SubLength {
+    background: #beccee;
+    border-radius: 30px;
+    color: white;
+    padding: 2px 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 12px;
+    min-width: 30px;
+    height: 20px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+}

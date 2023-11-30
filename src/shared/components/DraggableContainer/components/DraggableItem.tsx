@@ -14,11 +14,11 @@ export const DraggableItem = (props: DraggableItemProps) => {
              onPointerOver={onPointerOver}
              onPointerLeave={onPointerLeave}
         >
-            <div className={props.dropIndicatorClass} style={dropIndicatorStyle}/>
+            <div className={props.dropIndicatorClass} style={{...props.styleIndicator, ...dropIndicatorStyle}}/>
 
             <div className={`${styles.TableRow} ${props.TableRowClass}`}
                  ref={el => props.params.itemsRef.current[props.index] = el}
-                 style={tableRowStyle}
+                 style={{...props.styleRow, ...tableRowStyle}}
             >
                 {props.children}
             </div>

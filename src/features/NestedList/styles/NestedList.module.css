@@ -1,0 +1,62 @@
+.Root {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.RootParent {
+    gap: 4px;
+}
+
+.RootChildren {
+    border-top: 1px solid var(--light-gray);
+}
+
+
+.TableRowParent {
+    border-radius: 12px;
+    padding: 18px 0px;
+}
+
+.TableRowChildren {
+    padding: 14px 0 0 0;
+}
+
+.TableRow {
+    background-color: white;
+    color: var(--black);
+    transition: height .3s;
+    overflow: hidden;
+}
+
+
+.DropIndicator {
+    width: 100%;
+    position: relative;
+    flex-shrink: 0;
+    transition: opacity .4s, height .3s;
+}
+
+.DropIndicatorParent {
+    height: 82px;
+    background: var(--light-blue);
+
+    border: 2px dashed var(--primary);
+    border-radius: 12px;
+}
+
+.DropIndicatorChildren {
+    height: 72px;
+    background: var(--light-gray);
+}
+
+
+.line {
+    width: calc(100% - 50px);
+    height: 1px;
+    background-color: #E1E1E1;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}

@@ -15,9 +15,10 @@
     height: 72px;
 }
 
+
 .Root {
     border-top: 1px solid var(--light-gray);
-    overflow-Y: scroll;
+    overflow-y: scroll;
 }
 
 .line {

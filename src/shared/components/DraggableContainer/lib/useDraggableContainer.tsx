@@ -1,21 +1,20 @@
 import {useDraggableContainerProps} from "./props";
-import {MouseEvent, useEffect, useRef, useState} from "react";
-
-// САМАЯ ТЯЖЕЛАЯ ФУНКЦИЯ, ДУМАЮ НУЖНО ЕЕ РЕФАКТОРИТЬ :( , НО ВРЕМЕНИ НЕТ
+import {useEffect, useRef, useState} from "react";
 
 export const useDraggableContainer = (props: useDraggableContainerProps) => {
-
     const containerRef = useRef<any | null>(null); // ссылка на род. контейнер
-    const itemsRef = useRef<HTMLDivElement[] | null[]>([]); // массив ссылкок на элементы списка которые можно двигать
-    const isMouseDown = useRef<boolean>(false);
-    const dragItem = useRef<number | null>(null); // индекс текущего элемента которые мы двигаем
-    const dragOverItem = useRef<number | null>(null); // индекс текущего элемента которые мы перекрываем
-    const previousDragOverItem = useRef<number | null>(null); // индекс предыдущего элемента которые мы перекрываем
 
-    // то же что и dragOverItem но вызывается, так ка без него чет не работает, видать перерендер идет, когда изменяется
+    const itemsRef = useRef<HTMLDivElement[] | null[]>([]);
+    const [isDragging, setIsDragging] = useState<boolean>(false);
+
     const [currentOverDragging, setCurrentOverDragging] = useState<number | null>(null);
 
-    // cords - это КООРДИНАТЫ, лень писать длинное слово :)
+    const dragItem = useRef<number | null>(null);
+    const previousDragOverItem = useRef<number | null>(null);
+    const dragOverItem = useRef<number | null>(null);
+
+    const isMouseDown = useRef<boolean>(false);
+
     const cords = useRef<{
         startY: number;
         lastY: number;
@@ -26,32 +25,20 @@ export const useDraggableContainer = (props: useDraggableContainerProps) => {
         startX: 0,
     });
 
-
-    // не помню зачем нужна, но без нее не работет, видать перерендер идет, когда изменяется
-    const [isDragStart, setIsDragStart] = useState<boolean>(false);
-
-
     useEffect(() => {
         const container = containerRef.current;
 
         if (container !== null) {
             container.style.cursor = props.defaultCursor || 'grab';
         }
-
-        const handlePointerDown = (e: MouseEvent) => {
-            container.style.cursor = props.activeCursor || 'grabbing';
-
-            if (itemsRef.current !== null) {
-                for (let i = 0; i < itemsRef.current.length; i++) {
-
-                    itemsRef.current[i]!.style.transitionProperty = 'transform';
-
-                    itemsRef.current[i]!.style.transitionDuration = `0.4s`;
-                }
+        //
+        const handlePointerDown = (e: PointerEvent) => {
+            if (container !== null) {
+                container.style.cursor = props.activeCursor || 'grabbing';
             }
         }
 
-        const handlePointerMove = (e: MouseEvent) => {
+        const handlePointerMove = (e: PointerEvent) => {
             if (isMouseDown.current) {
 
                 if (props.onPointerMove) {
@@ -62,7 +49,22 @@ export const useDraggableContainer = (props: useDraggableContainerProps) => {
                     container.style.cursor = props.activeCursor || 'grabbing';
                 }
 
-                setIsDragStart(true);
+                if (itemsRef.current !== null) {
+                    for (let i = 0; i < itemsRef.current.length; i++) {
+                        itemsRef.current[i]!.style.transitionProperty = 'transform';
+                        itemsRef.current[i]!.style.transitionDuration = '0.3s';
+
+                        if (i !== dragItem.current) {
+                            itemsRef.current[i]!.style.zIndex = '1';
+                        } else {
+                            itemsRef.current[i]!.style.zIndex = '2';
+                        }
+                    }
+                }
+
+
+                setIsDragging(true);
+
 
                 if (itemsRef.current) {
 
@@ -72,9 +74,6 @@ export const useDraggableContainer = (props: useDraggableContainerProps) => {
 
                     if (current !== null && over !== null && previous !== null) {
 
-
-                        // ТУТ ИДЕТ СУХИЕ ЛОГИЧЕСКИЕ ВЫЧИСЛЕНИЯ, ПОТРАТИЛ НА ЭТО БОЛЬШУЮ ЧАСТЬ ВРЕМЕНИ
-                        // ТУТ МОЖНО ПОРЕФАКТОРИТЬ , НО НУЖНО ВСПОМНИТЬ ЗАКОНЫ ПОГЛАЩЕНИЯ И ТД, А ВРЕМЕНИ НЕТ
 
                         // console.log('o:', over, ' c:', current, ' p:', previous)
 
@@ -109,19 +108,20 @@ export const useDraggableContainer = (props: useDraggableContainerProps) => {
                     const nextX = e.clientX - cords.current.startX;
 
                     if (dragItem.current !== null) {
-                        itemsRef.current[dragItem.current!]!.style.zIndex = '9999';
-                        itemsRef.current[dragItem.current!]!.style.top = `${nextY}px`;
+                        const current = itemsRef.current[dragItem.current!]!;
+
+
+                        current.style.top = `${nextY}px`;
 
                         if (props.isDragX) {
-                            itemsRef.current[dragItem.current!]!.style.left = `${nextX}px`;
+                            current.style.left = `${nextX}px`;
                         }
 
                         if (props.isScalableItem) {
-                            itemsRef.current[dragItem.current!]!.style.transform = `scale(${props.scalableValue || 1})`;
+                            current.style.transform = `scale(${props.scalableValue || 1})`;
                         }
 
-                        // itemsRef.current[dragItem.current!]!.style.transitionProperty = 'transform, opacity';
-                        itemsRef.current[dragItem.current!]!.style.boxShadow = `0px 2px 20px rgba(0, 0, 0, 0.13)`;
+                        current.style.boxShadow = `0px 2px 20px rgba(0, 0, 0, 0.13)`;
                     }
 
                 }
@@ -129,77 +129,78 @@ export const useDraggableContainer = (props: useDraggableContainerProps) => {
         }
 
         const handlePointerUp = () => {
-            if (dragItem.current !== null && dragOverItem.current !== null) {
-                const copyListItems = [...props.list];
-                const dragItemContent = copyListItems[dragItem.current!];
-                copyListItems.splice(dragItem.current!, 1);
-                copyListItems.splice(dragOverItem.current!, 0, dragItemContent);
-                props.setList(copyListItems);
-            }
-            handlePointerLeave();
+            changeCurrentItemPosition();
+            setTimeout(reset, 200)
         }
 
-        const handlePointerLeave = () => {
+        const reset = () => {
+            if (dragItem.current !== null && dragOverItem.current !== null) {
+                const current = itemsRef.current[dragItem.current!]!;
 
-            isMouseDown.current = false;
-            setIsDragStart(false);
+                // const copyListItems = [...props.list];
+                // const dragItemContent = copyListItems[dragItem.current!];
+                // copyListItems.splice(dragItem.current!, 1);
+                // copyListItems.splice(dragOverItem.current!, 0, dragItemContent);
+                // props.setList(copyListItems);
 
-            if (itemsRef.current !== null) {
-                for (let i = 0; i < itemsRef.current.length; i++) {
-                    itemsRef.current[i]!.style.transform = `translateY(0px)`;
-                    itemsRef.current[i]!.style.transitionDuration = `0s`;
-                }
-            }
+                props.sortListByOrder(props.list, dragItem.current, dragOverItem.current)
 
-            if (itemsRef.current !== null && dragItem.current !== null) {
+                cords.current.lastY = 0;
 
-                itemsRef.current[dragItem.current!]!.style.zIndex = '1';
-                itemsRef.current[dragItem.current!]!.style.transform = `scale(1)`;
-                itemsRef.current[dragItem.current!]!.style.boxShadow = `none`;
-                itemsRef.current[dragItem.current!]!.style.left = `0px`;
-                itemsRef.current[dragItem.current!]!.style.top = `0px`;
+                current.style.transitionDuration = '0s';
+                current.style.left = `0px`;
+                current.style.top = `0px`;
 
                 if (itemsRef.current !== null) {
                     for (let i = 0; i < itemsRef.current.length; i++) {
-                        if (i !== dragItem.current!) {
-                            itemsRef.current[i]!.style.transitionProperty = 'none';
-                            itemsRef.current[i]!.style.transitionDuration = `0s`;
-
-                        } else {
-                            // сюда бы top добавить но чет фигня получается видать исправить че то надо
-                            itemsRef.current[i]!.style.transitionProperty = 'transform, left';
-                            itemsRef.current[i]!.style.transitionDuration = `0.4s`;
-                        }
-
+                        itemsRef.current[i]!.style.transform = `translateY(0px)`;
+                        itemsRef.current[i]!.style.transitionDuration = `0s`;
                     }
                 }
+
+                dragItem.current = null;
+                dragOverItem.current = null;
             }
 
-
-            dragItem.current = null;
-            dragOverItem.current = null;
-
-            containerRef.current.style.cursor = props.defaultCursor || 'grab';
         }
 
-        container!.addEventListener('pointermove', handlePointerMove);
-        container!.addEventListener('pointerup', handlePointerUp);
-        container!.addEventListener('pointerleave', handlePointerLeave);
-        container!.addEventListener('pointerdown', handlePointerDown);
+        const changeCurrentItemPosition = () => {
+            setIsDragging(false);
+            isMouseDown.current = false;
+            container.style.cursor = props.defaultCursor || 'grab';
+
+            if (itemsRef.current !== null && dragItem.current !== null) {
+
+                const current = itemsRef.current[dragItem.current!]!;
+
+                current.style.transform = `scale(1)`;
+                current.style.boxShadow = `none`;
+                current.style.transitionProperty = 'transform, left, top';
+                current.style.left = `0px`;
+
+                let shiftY = dragOverItem.current !== null ? dragOverItem.current! - dragItem.current : 0;
+                cords.current.lastY = (shiftY * (current.offsetHeight + (props.gap || 0)));
+                current.style.top = `${cords.current.lastY}px`;
+            }
+        }
+
+        window.addEventListener('pointermove', handlePointerMove);
+        window.addEventListener('pointerup', handlePointerUp);
+        window.addEventListener('pointerleave', handlePointerUp);
+        container.addEventListener('pointerdown', handlePointerDown);
 
 
         return () => {
-            container!.removeEventListener('pointermove', handlePointerMove);
-            container!.removeEventListener('pointerup', handlePointerUp);
-            container!.removeEventListener('pointerleave', handlePointerLeave);
-            container!.removeEventListener('pointerdown', handlePointerDown);
-
+            window.removeEventListener('pointermove', handlePointerMove);
+            window.removeEventListener('pointerup', handlePointerUp);
+            window.removeEventListener('pointerleave', handlePointerUp);
+            container.removeEventListener('pointerdown', handlePointerDown);
         }
     }, [props])
 
     return {
-        containerRef,
         itemsRef,
+        isDragging,
         currentOverDragging,
         setCurrentOverDragging,
         cords,
@@ -207,5 +208,6 @@ export const useDraggableContainer = (props: useDraggableContainerProps) => {
         dragOverItem,
         previousDragOverItem,
         dragItem,
+        containerRef
     }
 }
